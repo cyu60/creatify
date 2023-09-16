@@ -1,4 +1,5 @@
 # Creatify
+# Creatify
 
 # 💡 Inspiration 💡
 
