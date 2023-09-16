@@ -1,14 +1,14 @@
-# Concepify
+# Creatify
 
 # 💡 Inspiration 💡
 
-We were ignited by the challenge: How can we make learning complex topics not just easier, but also incredibly exciting? Welcome to Concepify, where we're pioneering the future of education through AI-driven mindmaps and next-gen interfaces. 🚀
+We were ignited by the challenge: How can we help graphic designers and artists explore the full extent of their creations? Welcome to Creatify, where we're pioneering the future of design through AI-driven mindmaps and next-gen interfaces. 🚀
 
 ## 🌟 What it Does 🌟
 
-### 🌈 A Revolutionary Way to Learn: The Mindmap Interface 🌈
+### 🌈 A Revolutionary Way to Design: The Mindmap Interface 🌈
 
-Concepify is more than just a tool; it's an electrifying experience that reshapes how you engage with knowledge. Imagine a kaleidoscopic network of your thoughts and queries, transformed into a dynamic, interactive landscape by our state-of-the-art Language Learning Models (LLMs) and generative AI. 🤖
+Creatify is more than just a tool; it's an electrifying experience that reshapes how you engage with knowledge. Imagine a kaleidoscopic network of your thoughts and queries, transformed into a dynamic, interactive landscape by our state-of-the-art Language Learning Models (LLMs) and generative AI. 🤖
 
 ### 🎓 Mind-Bending Understanding of Complex Topics 🎓
 
