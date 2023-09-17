@@ -7,6 +7,7 @@ import { ChatCompletionRequestMessage } from "openai";
 import useStore from "@/lib/store";
 import Image from "next/image";
 import axios from "axios";
+import { ImageResponse } from "next/server";
 
 export type NodeData = {
   label: string;
@@ -22,6 +23,9 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
 
   const store = useStoreApi();
   const [rows, setRows] = useState(1);
+  const [image_url, setImgUrl] = useState("null");
+
+  // let image_url = 'null';
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,7 +94,9 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     console.log(userMessage);
     const imgResponse = await axios.post("/api/replicate", userMessage);
     console.log("This is the image response");
-    console.log(imgResponse);
+    console.log(imgResponse['data'][0]);
+    setImgUrl(imgResponse['data'][0])
+    // image_url = imgResponse['data'][0]
 
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -184,9 +190,11 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           </Button>
           
         </div>
+        {image_url !== 'null' &&(
         <div>
-          <img style={{maxWidth:200}} src="https://zhizdev.github.io/personal_webpage/zhizhuo_2021_small.jpeg"></img>
+          <img style={{maxWidth:200}} src={image_url}></img>
         </div>
+        )}
         </div>
 
           
