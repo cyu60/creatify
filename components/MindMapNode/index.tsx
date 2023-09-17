@@ -137,13 +137,15 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
 
   const handleOnQuestion = async () => {
     await handleHelper(
-      "Ask 1 insightful socratic question about the statement."
+      //"Ask 1 insightful socratic question about the statement."
+      "Describe a scene where this object exists and please keep it short and concise."
     );
   };
 
   const handleOnExplain = async () => {
     await handleHelper(
-      "Explain this statement like I am a college student. Keep it short and sweet, as concise as possible."
+      //"Explain this statement like I am a college student. Keep it short and sweet, as concise as possible."
+      "Describe a similar object and please keep it short and concise."
     );
   };
 
@@ -167,6 +169,7 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   //   return <Loader/>
   // }
 
+  console.log(data.image_url)
   return (
     <>
       <div className="inputWrapper content-center group">

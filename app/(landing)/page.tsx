@@ -24,7 +24,7 @@ const features = [
   {
     name: "AI-Driven Mindmaps",
     description:
-      "Concepify uses advanced Language Learning Models to dynamically generate mindmaps, helping you explore complex topics in an intuitive manner.",
+      "Creatify uses advanced Language Learning Models to dynamically generate mindmaps, helping you explore complex topics in an intuitive manner.",
     icon: Brain, // Replace with an appropriate icon for AI or mindmaps
   },
   {
@@ -36,13 +36,13 @@ const features = [
   {
     name: "Dynamic Brainstorming",
     description:
-      "Concepify constantly prompts you to explore deeper layers of a subject, turning your brainstorming sessions into a treasure hunt of knowledge.",
+      "Creatify constantly prompts you to explore deeper layers of a subject, turning your brainstorming sessions into a treasure hunt of knowledge.",
     icon: Search, // Replace with an appropriate icon for exploration or brainstorming
   },
   {
     name: "Multi-Modal Learning",
     description:
-      "Beyond text-based interfaces, Concepify offers multi-modal components to cater to various learning styles, enhancing understanding and retention.",
+      "Beyond text-based interfaces, Creatify offers multi-modal components to cater to various learning styles, enhancing understanding and retention.",
     icon: Palette, // Replace with an appropriate icon for multi-modal learning
   },
 ];
@@ -186,7 +186,7 @@ export default function Example() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Welcome to <span className="text-goodpink">Concepify</span>
+                  Welcome to <span className="text-goodpink">Creatify</span>
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
                   Revolutionize your learning experience with AI-driven
@@ -242,10 +242,10 @@ export default function Example() {
                 Learn Smarter
               </h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Revolutionize Your Learning Experience with Concepify
+                Revolutionize Your Learning Experience with Creatify
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Concepify offers a dynamic AI-driven mindmap interface, enabling
+              Creatify offers a dynamic AI-driven mindmap interface, enabling
                 you to delve into complex topics and ignite your creativity like
                 never before.
               </p>
@@ -278,10 +278,10 @@ export default function Example() {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Elevate Your Learning Journey.
             <br />
-            Sign up for Concepify now.
+            Sign up for Creatify now.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Concepify combines AI and interactive mindmaps to revolutionize how
+          Creatify combines AI and interactive mindmaps to revolutionize how
             you understand complex subjects and brainstorm ideas.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">

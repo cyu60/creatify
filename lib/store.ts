@@ -33,7 +33,7 @@ export const initialState: RFState = {
     {
       id: "root",
       type: "mindmap",
-      data: { label: "What would you like to explore?" , image_url:"null"},
+      data: { label: "What would you like to explore?" , image_url:""},
       position: { x: 0, y: 0 },
       dragHandle: ".dragHandle",
     },
