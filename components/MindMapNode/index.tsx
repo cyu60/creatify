@@ -50,7 +50,7 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   //   addChildNode(id, { x: Math.random() * 500, y: Math.random() * 500 }); // Pass the id or any other required parameters
   // };
 
-  const handleHelper = async (guidingPrompt: string) => {
+  const handleHelper = async (guidingPrompt: string, draw: boolean=false) => {
     // logic to add child
     const { nodeInternals } = store.getState();
 
@@ -68,7 +68,6 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
         : null
     );
 
-    const newNode = addChildNode(parentNode, "", newPosition);
 
     const systemPrompt: ChatCompletionRequestMessage = {
       role: "system",
@@ -82,6 +81,17 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
       content: parentNode.data.label,
     };
 
+    if (draw) {
+      console.log("user message:");
+      console.log(userMessage);
+      const imgResponse = await axios.post("/api/replicate", userMessage);
+      console.log("This is the image response");
+      console.log(imgResponse['data'][0]);
+      setImgUrl(imgResponse['data'][0]);
+      // image_url = imgResponse['data'][0]
+      return
+    }
+
     const response = await fetch("/api/mindmap", {
       method: "POST",
       headers: {
@@ -89,14 +99,8 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
       },
       body: JSON.stringify({ messages: [systemPrompt, userMessage] }),
     });
-    
-    console.log("user message:");
-    console.log(userMessage);
-    const imgResponse = await axios.post("/api/replicate", userMessage);
-    console.log("This is the image response");
-    console.log(imgResponse['data'][0]);
-    setImgUrl(imgResponse['data'][0])
-    // image_url = imgResponse['data'][0]
+
+    const newNode = addChildNode(parentNode, "", newPosition);
 
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -131,6 +135,12 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   const handleOnExplain = async () => {
     await handleHelper(
       "Explain this statement like I am a college student. Keep it short and sweet, as concise as possible."
+    );
+  };
+
+  const handleOnDraw = async () => {
+    await handleHelper(
+      "Draw a high quality image of ", true
     );
   };
 
@@ -188,11 +198,17 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           >
             <img src="/Group.svg" alt="Icon" width={20} height={20} />
           </Button>
+          <Button
+            onClick={() => handleOnDraw()}
+            className="rounded bg-white hover:bg_niceyellow ml-2 text-black"
+          >
+            Draw
+          </Button>
           
         </div>
         {image_url !== 'null' &&(
         <div>
-          <img style={{maxWidth:200}} src={image_url}></img>
+          <img style={{maxWidth:350}} src={image_url}></img>
         </div>
         )}
         </div>
