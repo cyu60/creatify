@@ -8,7 +8,7 @@ import { ReactFlowProvider } from "reactflow";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Concepify",
+  title: "Creatify",
   description: "Revolutionizing education through AI-driven mindmaps",
 };
 

@@ -193,7 +193,7 @@ function Flow() {
 
   return (
     <div className="h-screen flex flex-col ">
-      <MindMapNavbar name={mindMap?.label || "New Concepify"} />
+      <MindMapNavbar name={mindMap?.label || "New Creatify"} />
       <div className="flex-grow">
         <ReactFlow
           nodes={nodes}
