@@ -141,45 +141,56 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   return (
     <>
       <div className="inputWrapper content-center group">
-        {id !== "root" && (
+      <div className="dragHandle">
+            <GripVertical color="white"></GripVertical>
+          </div>
+        <div className="grid grid-rows-2 grid-flow-col gap-4">
+        <div>
+          {id !== "root" && (
+            <Button
+              onClick={() => handleOnDelete()}
+              className="absolute bg-goodpink hover:bg-niceyellow left-[-75px] hidden group-focus-within:inline"
+            >
+              <Trash2 />
+            </Button>
+          )}
           <Button
-            onClick={() => handleOnDelete()}
-            className="absolute bg-goodpink hover:bg-niceyellow left-[-75px] hidden group-focus-within:inline"
+            onClick={() => handleOnSuggestion()}
+            className="absolute bg-goodpink hover:bg-niceyellow right-[-75px] hidden group-focus-within:inline"
           >
-            <Trash2 />
+            <Plus />
           </Button>
-        )}
-        <Button
-          onClick={() => handleOnSuggestion()}
-          className="absolute bg-goodpink hover:bg-niceyellow right-[-75px] hidden group-focus-within:inline"
-        >
-          <Plus />
-        </Button>
-        <div className="dragHandle ">
-          <GripVertical color="white"></GripVertical>
+          
+          
+          <textarea
+            placeholder="New Concept"
+            value={data.label}
+            onChange={(evt) => updateNodeLabel(id, evt.target.value)}
+            className="border-none px-0.5 rounded-sm font-bold bg-transparent max-w-sm h-fit text-white focus:border-none focus:outline-none focus:bg-opacity-25 focus:bg-white"
+            ref={inputRef}
+            rows={rows}
+          />
+          <Button
+            onClick={() => handleOnQuestion()}
+            className="rounded bg-white hover:bg-niceyellow ml-2"
+          >
+            <Image src="/question.svg" alt="Icon" width={20} height={20} />
+          </Button>
+          <Button
+            onClick={() => handleOnExplain()}
+            className="rounded bg-white hover:bg-niceyellow ml-2"
+          >
+            <img src="/Group.svg" alt="Icon" width={20} height={20} />
+          </Button>
+          
         </div>
-        <textarea
-          placeholder="New Concept"
-          value={data.label}
-          onChange={(evt) => updateNodeLabel(id, evt.target.value)}
-          className="border-none px-0.5 rounded-sm font-bold bg-transparent max-w-sm h-fit text-white focus:border-none focus:outline-none focus:bg-opacity-25 focus:bg-white"
-          ref={inputRef}
-          rows={rows}
-        />
-        <Button
-          onClick={() => handleOnQuestion()}
-          className="rounded bg-white hover:bg-niceyellow ml-2"
-        >
-          <Image src="/question.svg" alt="Icon" width={20} height={20} />
-        </Button>
-        <Button
-          onClick={() => handleOnExplain()}
-          className="rounded bg-white hover:bg-niceyellow ml-2"
-        >
-          <img src="/Group.svg" alt="Icon" width={20} height={20} />
-        </Button>
-      </div>
+        <div>
+          <img style={{maxWidth:200}} src="https://zhizdev.github.io/personal_webpage/zhizhuo_2021_small.jpeg"></img>
+        </div>
+        </div>
 
+          
+      </div>
       <Handle type="target" position={Position.Top} />
       <Handle type="source" position={Position.Top} />
     </>
