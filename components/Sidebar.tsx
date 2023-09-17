@@ -119,7 +119,7 @@ const Sidebar = () => {
           <div className="relative w-8 h-8 mr-4">
             <Image fill alt="Logo" src="/circle_brain_logo.png"></Image>
           </div>
-          <h1 className="text-2xl font-bold text-white">Concepify</h1>
+          <h1 className="text-2xl font-bold text-white">Creatify</h1>
         </Link>
         <div className="space-y-1">
           <SidebarButton label="Recent" />

@@ -124,7 +124,7 @@ const useStore = create<RFState>((set, get) => {
       const newNode = {
         id: nanoid(),
         type: "mindmap",
-        data: { label: label },
+        data: { label: label, image_url:'' },
         position,
         dragHandle: ".dragHandle",
         parentNode: parentNode.id,

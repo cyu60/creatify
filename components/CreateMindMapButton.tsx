@@ -21,7 +21,7 @@ const onSubmit = () => {
 };
 const CreateMindMapButton = () => {
   const [open, setOpen] = useState(false);
-  const [label, setLabel] = useState("name of concepify");
+  const [label, setLabel] = useState("name of creatify");
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -29,15 +29,15 @@ const CreateMindMapButton = () => {
         <Button className="bg-goodpink">
           <Plus />{" "}
           <div className="pl-4 text-md font-bold whitespace-nowrap">
-            Add a new Concepify
+            Add a new Creatify
           </div>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create a new Conceptify</DialogTitle>
+          <DialogTitle>Create a new Creatify</DialogTitle>
           <DialogDescription>
-            A Concepify is a mind map that helps you organize your thoughts.
+            A Creatify is a mind map that helps you organize your thoughts.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
