@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { ChatCompletionRequestMessage } from "openai";
 import useStore from "@/lib/store";
 import Image from "next/image";
+import axios from "axios";
 
 export type NodeData = {
   label: string;
@@ -84,6 +85,12 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
       },
       body: JSON.stringify({ messages: [systemPrompt, userMessage] }),
     });
+    
+    console.log("user message:");
+    console.log(userMessage);
+    const imgResponse = await axios.post("/api/replicate", userMessage);
+    console.log("This is the image response");
+    console.log(imgResponse);
 
     if (!response.ok) {
       throw new Error(response.statusText);
