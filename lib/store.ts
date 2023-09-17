@@ -21,6 +21,7 @@ export type RFState = {
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   updateNodeLabel: (nodeId: string, label: string) => void;
+  updateNodeImage: (nodeId: string, image_url: string) => void;
   addChildNode: (parentNode: Node, label: string, position: XYPosition) => Node;
   deleteSelfAndChildren: (nodeId: string) => void;
 };
@@ -32,7 +33,7 @@ export const initialState: RFState = {
     {
       id: "root",
       type: "mindmap",
-      data: { label: "What would you like to explore?" },
+      data: { label: "What would you like to explore?" , image_url:"null"},
       position: { x: 0, y: 0 },
       dragHandle: ".dragHandle",
     },
@@ -41,10 +42,11 @@ export const initialState: RFState = {
   onNodesChange: () => {},
   onEdgesChange: () => {},
   updateNodeLabel: () => {},
+  updateNodeImage: () => {},
   addChildNode: () => ({
     id: "",
     type: "",
-    data: { label: "" },
+    data: { label: "" , image_url:"null"},
     position: { x: 0, y: 0 },
   }),
   deleteSelfAndChildren: () => {},
@@ -106,6 +108,17 @@ const useStore = create<RFState>((set, get) => {
       });
       set({ nodes: newNodes });
       saveState({ ...get(), nodes: newNodes });
+    },
+    updateNodeImage: (nodeId: string, image_url: string) => {
+      const newNodes = get().nodes.map((node) => {
+        if (node.id === nodeId) {
+          node.data = { ...node.data, image_url};
+        }
+        return node;
+      })
+      set({ nodes: newNodes });
+      saveState({ ...get(), nodes: newNodes });
+      
     },
     addChildNode: (parentNode: Node, label: string, position: XYPosition) => {
       const newNode = {

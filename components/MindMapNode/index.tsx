@@ -11,11 +11,13 @@ import { ImageResponse } from "next/server";
 
 export type NodeData = {
   label: string;
+  image_url: string;
 };
 
 function MindMapNode({ id, data }: NodeProps<NodeData>) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const updateNodeLabel = useStore((state) => state.updateNodeLabel);
+  const updateNodeImage = useStore((state) => state.updateNodeImage)
   const addChildNode = useStore((state) => state.addChildNode);
   const deleteSelfAndChildren = useStore(
     (state) => state.deleteSelfAndChildren
@@ -23,7 +25,6 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
 
   const store = useStoreApi();
   const [rows, setRows] = useState(1);
-  const [image_url, setImgUrl] = useState("null");
 
   // let image_url = 'null';
 
@@ -84,45 +85,47 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     if (draw) {
       console.log("user message:");
       console.log(userMessage);
+      const newNode = addChildNode(parentNode, "", newPosition);
       const imgResponse = await axios.post("/api/replicate", userMessage);
       console.log("This is the image response");
       console.log(imgResponse['data'][0]);
-      setImgUrl(imgResponse['data'][0]);
-      // image_url = imgResponse['data'][0]
-      return
+      let image_response_url = imgResponse['data'][0]
+      updateNodeImage(newNode.id, imgResponse['data'][0])      
     }
+    else {
 
-    const response = await fetch("/api/mindmap", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ messages: [systemPrompt, userMessage] }),
-    });
+      const response = await fetch("/api/mindmap", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages: [systemPrompt, userMessage] }),
+      });
 
-    const newNode = addChildNode(parentNode, "", newPosition);
+      const newNode = addChildNode(parentNode, "", newPosition);
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
 
-    const stream = response.body;
-    if (!stream) {
-      return;
-    }
-    // console.log(stream);
-    const reader = stream.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-    let currentMessage = "";
+      const stream = response.body;
+      if (!stream) {
+        return;
+      }
+      // console.log(stream);
+      const reader = stream.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      let currentMessage = "";
 
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      currentMessage += chunkValue;
-      // console.log(currentMessage);
-      updateNodeLabel(newNode.id, currentMessage);
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        currentMessage += chunkValue;
+        // console.log(currentMessage);
+        updateNodeLabel(newNode.id, currentMessage);
+      }
     }
   };
 
@@ -206,9 +209,9 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           </Button>
           
         </div>
-        {image_url !== 'null' &&(
+        {data.image_url !== 'null' &&(
         <div>
-          <img style={{maxWidth:350}} src={image_url}></img>
+          <img style={{maxWidth:350}} src={data.image_url}></img>
         </div>
         )}
         </div>
