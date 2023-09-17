@@ -8,11 +8,14 @@ import useStore from "@/lib/store";
 import Image from "next/image";
 import axios from "axios";
 import { ImageResponse } from "next/server";
+import Loader from "../Loader";
 
 export type NodeData = {
   label: string;
   image_url: string;
 };
+
+const LOAD_IMG = "<LoadingImg>";
 
 function MindMapNode({ id, data }: NodeProps<NodeData>) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -36,13 +39,15 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
 
   useLayoutEffect(() => {
     if (inputRef.current) {
-      inputRef.current.style.width = `${data.label.length * 8 + 120}px`;
-      // currently takes about 25 characters per line so we want to divide by 25 and ceil it. Multiply since we need padding and stuff
-      // inputRef.current.style.height = `${
-      //   Math.ceil(data.label.length / 25) + 1.5
-      // }em`;
-      const length = data.label.length + 1;
-      setRows(Math.ceil(length / 25));
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = inputRef.current.scrollHeight + "px";
+      // inputRef.current.style.width = `${data.label.length * 8 + 120}px`;
+      // // currently takes about 25 characters per line so we want to divide by 25 and ceil it. Multiply since we need padding and stuff
+      // // inputRef.current.style.height = `${
+      // //   Math.ceil(data.label.length / 25) + 1.5
+      // // }em`;
+      // const length = data.label.length + 1;
+      // setRows(Math.ceil(length / 25));
     }
   }, [data.label.length]);
 
@@ -51,7 +56,7 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   //   addChildNode(id, { x: Math.random() * 500, y: Math.random() * 500 }); // Pass the id or any other required parameters
   // };
 
-  const handleHelper = async (guidingPrompt: string, draw: boolean=false) => {
+  const handleHelper = async (guidingPrompt: string, draw: boolean = false) => {
     // logic to add child
     const { nodeInternals } = store.getState();
 
@@ -85,12 +90,13 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     if (draw) {
       console.log("user message:");
       console.log(userMessage);
-      const newNode = addChildNode(parentNode, "", newPosition);
+      const newNode = addChildNode(parentNode, LOAD_IMG, newPosition);
       const imgResponse = await axios.post("/api/replicate", userMessage);
       console.log("This is the image response");
       console.log(imgResponse['data'][0]);
       let image_response_url = imgResponse['data'][0]
-      updateNodeImage(newNode.id, imgResponse['data'][0])      
+      updateNodeImage(newNode.id, imgResponse['data'][0])
+      updateNodeLabel(newNode.id, "")
     }
     else {
 
@@ -157,30 +163,42 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     );
   };
 
+  // if (data.label === LOAD_IMG) {
+  //   return <Loader/>
+  // }
+
   return (
     <>
       <div className="inputWrapper content-center group">
-      <div className="dragHandle">
-            <GripVertical color="white"></GripVertical>
-          </div>
-        <div className="grid grid-rows-2 grid-flow-col gap-4">
-        <div>
-          {id !== "root" && (
+        <div className="dragHandle">
+          <GripVertical color="white"></GripVertical>
+        </div>
+        <div className="flex flex-col">
+          <div>
+            {id !== "root" && (
+              <Button
+                onClick={() => handleOnDelete()}
+                className="absolute bg-goodpink hover:bg-niceyellow left-[-75px] hidden group-focus-within:inline"
+              >
+                <Trash2 />
+              </Button>
+            )}
             <Button
-              onClick={() => handleOnDelete()}
-              className="absolute bg-goodpink hover:bg-niceyellow left-[-75px] hidden group-focus-within:inline"
+              onClick={() => handleOnSuggestion()}
+              className="absolute bg-goodpink hover:bg-niceyellow right-[-75px] hidden group-focus-within:inline"
             >
-              <Trash2 />
+              <Plus />
             </Button>
-          )}
-          <Button
-            onClick={() => handleOnSuggestion()}
-            className="absolute bg-goodpink hover:bg-niceyellow right-[-75px] hidden group-focus-within:inline"
-          >
-            <Plus />
-          </Button>
-          
-          
+
+            
+
+          </div>
+          {data.label === LOAD_IMG ? <Loader/> :
+          !!data.image_url && data.image_url.length > 0 ? (
+            <div>
+              <img style={{ maxWidth: 350 }} src={data.image_url}></img>
+            </div>
+          ): <div className="flex flex-row">
           <textarea
             placeholder="New Concept"
             value={data.label}
@@ -207,16 +225,10 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           >
             Draw
           </Button>
-          
-        </div>
-        {data.image_url !== 'null' &&(
-        <div>
-          <img style={{maxWidth:350}} src={data.image_url}></img>
-        </div>
-        )}
+        </div >}
         </div>
 
-          
+
       </div>
       <Handle type="target" position={Position.Top} />
       <Handle type="source" position={Position.Top} />

@@ -25,18 +25,18 @@ export async function POST(req: Request) {
       }
     );
 
-    const output = await replicate.run(
-      "timothybrooks/instruct-pix2pix:30c1d0b916a6f8efce20493f5d61ee27491ab2a60437c13c588468b9810ec23f",
-      {
-        input: {
-          image: "https://pbxt.replicate.delivery/4nqbgWgRqsZHJdq4UJ4hDqiOUOF248nwG4meJy6yC7fZ6fJjA/out-0.png",
-          prompt: "change the buildings to make them futuristic, cyberpunk",
-          guidance_scale: 15.0
-        }
-      }
-    );
+    // const output = await replicate.run(
+    //   "timothybrooks/instruct-pix2pix:30c1d0b916a6f8efce20493f5d61ee27491ab2a60437c13c588468b9810ec23f",
+    //   {
+    //     input: {
+    //       image: "https://pbxt.replicate.delivery/4nqbgWgRqsZHJdq4UJ4hDqiOUOF248nwG4meJy6yC7fZ6fJjA/out-0.png",
+    //       prompt: "change the buildings to make them futuristic, cyberpunk",
+    //       guidance_scale: 15.0
+    //     }
+    //   }
+    // );
 
-    return NextResponse.json(output);
+    return NextResponse.json(response);
 
   } catch (err) {
     console.log(err);

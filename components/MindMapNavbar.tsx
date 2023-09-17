@@ -266,7 +266,7 @@ const MindMapNavbar: React.FC<{ name: string }> = ({ name }) => {
               <div className="relative w-8 h-8 mr-4">
                 <Image fill alt="Logo" src="/circle_brain_logo.png"></Image>
               </div>
-              <h1 className="text-2xl font-bold text-goodpink">Concepify</h1>
+              <h1 className="text-2xl font-bold text-goodpink">Creatify</h1>
             </Link>
           </div>
           <div className="flex items-center flex-grow self-center text-center justify-center justify-self-center">
