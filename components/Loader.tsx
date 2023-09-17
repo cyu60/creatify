@@ -20,7 +20,7 @@ const Loader = () => {
         /> */}
           </div>
           <p className="text-sm text-muted-foreground animate-bounce">
-            Concepify is loading...
+            Creatify is loading...
           </p>
         </div>
         {/* <div className="my-5 p-10 w-full bg-slate-200 h-10 rounded-lg">
